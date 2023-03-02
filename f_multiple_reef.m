@@ -21,9 +21,9 @@ load('GBR_REEF_POLYGONS_2022.mat')
 % Now contains the UNIQUE_ID of the GBRMPA shapefile GBR_REEF_FEATURES.shp. GBRMPA reef names and ID checked by Caro.
  
 %% Reef selection
-% META.reef_ID = [1:3806]'; % Entire GBR
+META.reef_ID = [1:3806]'; % Entire GBR
 % META.reef_ID = GBR_REEFS.Reef_ID(GBR_REEFS.LAT<-15.4 & GBR_REEFS.LAT >-15.7); % Region around Moore reef
-META.reef_ID = GBR_REEFS.Reef_ID(GBR_REEFS.LAT<-15.76 & GBR_REEFS.LAT >-17.34); % Cairns region reduced (190 reefs) for restoration
+% META.reef_ID = GBR_REEFS.Reef_ID(GBR_REEFS.LAT<-15.76 & GBR_REEFS.LAT >-17.34); % Cairns region reduced (190 reefs) for restoration
 
 %% Simulating only the 4 reefs of the Moore Reef cluster:
 % META.reef_ID = [695 ; 697 ; 969 ; 970]; % Moore cluster (CANNOT RUN ONE REEF ONLY -> COTS CONTROL WILL CRASH)

@@ -13,7 +13,7 @@
 %__________________________________________________________________________
 clear
 
-NB_SIMULATIONS = 20; % Number of repeated runs
+NB_SIMULATIONS = 5; % Number of repeated runs
 addpath(genpath('.'));
 SaveDir ='';
 
@@ -28,18 +28,18 @@ NB_TIME_STEPS = 26+60; % HINDCAST+FORECAST summer 2008 - winter 2050
 % NB_TIME_STEPS = 26+158; % HINDCAST+FORECAST summer 2008 - winter 2099
 
 % OutputName = 'R0_FORECAST_GBR'; options = [1 1 1 1 0]; % see options below
-OutputName = 'R0_BCA_Moore'; options = [1 1 1 1 1]; % Counterfactual of the Business Case Assessment (35x35 grid cells)
+OutputName = 'IPCC_60_2070'; options = [0 1 1 0 0]; % Counterfactual of the Business Case Assessment (35x35 grid cells)
 % Requires turning ON restoration, outplanted_density = 0 (ie, deployment of zero coral) and the year of first (ghost) 
 % 'deployment' to keep track of intervention sites within reefs (ie, cells with deployment of zero coral) that are
 % the exact same as in the intervention scenarios
-% OutputName = 'R1_BCA_Moore'; options = [1 1 1 1 1]; % see options below
+% OutputName = 'IPCC_60_2070'; options = [1 1 1 1 1]; % see options below
 
 % select the Global Circulation Model for climate change projection 
 GCM = 3; % 1=CCSM4, 2=CESM1_WACCM, 3=MIROC5, 4=GFDL_ESM2M, 5=HadGEM2, 6=GISS_E2_R
 % Select the carbon emission pathway
-RCP = 2; % 1=RCP2.6, 2=RCP4.5, 3=RCP6.0, 4=RCP8.5
+RCP = 3; % 1=RCP2.6, 2=RCP4.5, 3=RCP6.0, 4=RCP8.5
 
-%% --------------------------------------------------------------------------------
+%%  
 GCM_list=["CCSM4";"CESM1_WACCM";"MIROC5";"GFDL_ESM2M";"HadGEM2";"GISS_E2_R"];
 RCP_list = ["26"; "45"; "60"; "85"];
 OPTIONS.GCM = GCM_list(GCM);
@@ -64,7 +64,7 @@ OPTIONS.init_rubble_cover = []; % as proportional cover
 OPTIONS.ssc = []; %0.1; %in mg/L
 
 %% CoTS control
-OPTIONS.doing_COTS_control= 1; % Note control is set to start in 2019 (after 23 time steps)
+OPTIONS.doing_COTS_control= 0; % Note control is set to start in 2019 (after 23 time steps)
 OPTIONS.CoTS_control_scenarios = csvread('parsList2.csv', 0, 1);
 % Caro: 5 boats, whole GBR, start control in 2019. New list adjusted for matching Coconet
 % Option names in parsList2.csv. Second value is spatial strategy (14: whole GBR under CoTS control).
@@ -95,7 +95,7 @@ RESTORATION.outplant_species_prop = [0.02 0.14 0.14 0 0.7 0]; % Taxonomic compos
 RESTORATION.outplant_diameter_mean = [2.56 2.56 2.56 1.41 1.41 1.41] ; % mean diameter (in cm) of outplants of outplants of each deployed type
 RESTORATION.outplant_diameter_sd = [0.26 0.26 0.26 0.14 0.14 0.14] ; % sd diameter (in cm) of outplants of outplants of each deployed type
 
-%% Rubble stabilisation
+%%  
 % Set the restoration effort: number of reefs where rubble is stabilised at each time step
 RESTORATION.nb_reefs_stabilised = 0 ; % (if 0 rubble stabilisation cannot happen) 
 % Set the timing of intervention (if 1 intervention is deployed at step t, if 0 no intervention at t)
@@ -141,8 +141,8 @@ end
 OUTPUTS = struct('REEF', [],'RESULT', [],'RECORD', []);
 TEMP_META = struct('META', []);
 
-% parfor run_id = 1:NB_SIMULATIONS
-for run_id = 1:NB_SIMULATIONS
+parfor run_id = 1:NB_SIMULATIONS
+% for run_id = 1:NB_SIMULATIONS
     
     run_id
     
